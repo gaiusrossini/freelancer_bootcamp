@@ -1,52 +1,51 @@
-# Ignore Python virtual environment
-.venv/
-
-# Ignore Python cache files and compiled files
+# ===============================
+# 💻 Python Environment & Cache
+# ===============================
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
 
-# Ignore log files
-*.log
-
-# Ignore PyCharm project settings
-.idea/
-
-# Ignore VS Code project settings
-.vscode/
-
-# Ignore system files
-.DS_Store
-Thumbs.db
-
-# Ignore environment variable files (for API keys, secrets, etc.)
-.env
-
-# Byte-compiled / cache
-__pycache__/
-*.py[cod]
-
-# Virtual env
+# ===============================
+# 📦 Virtual Environments
+# ===============================
 .venv/
 env/
 venv/
 
-# IDEs
-.idea/
-.vscode/
-
-# Logs, SQLite, test results
+# ===============================
+# 🧪 Logs, Databases & Test Files
+# ===============================
 *.log
 *.sqlite3
 
-# OS
-.DS_Store
+# ===============================
+# 🛠 Editor & IDE Configs
+# ===============================
+.vscode/
+.idea/
 
-# ChromeDriver
+# ===============================
+# 📂 System Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# 🔐 Secrets & Environment Files
+# ===============================
+.env
+
+# ===============================
+# 🌐 Drivers, Binaries, Executables
+# ===============================
 chromedriver.exe
 
-# Data/output
+# ===============================
+# 📊 Data & Outputs
+# ===============================
+# Ignore all JSONs, except specific ones
 *.json
 !README.json
-airdrop_sniper/data/*.json
+!freelance_sniper/data/jobs.json
+!freelance_sniper/data/notified_jobs.json

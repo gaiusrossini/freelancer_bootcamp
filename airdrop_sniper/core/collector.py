@@ -1,6 +1,7 @@
 # collector.py
 import json
 import os
+import datetime
 
 DATA_FILE = 'data/airdrops.json'
 
@@ -33,6 +34,7 @@ def collect_and_store(new_airdrops):
 
     for airdrop in new_airdrops:
         if is_new_airdrop(airdrop, existing):
+            airdrop["created_at"] = datetime.utcnow().isoformat() + "Z"
             existing.append(airdrop)
             added.append(airdrop)
 

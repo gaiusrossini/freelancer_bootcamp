@@ -3,9 +3,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 
+
 def get_airdrops():
+    """
+    Scrapes airdrops from airdropsmob.com using Selenium.
+
+    Returns:
+        list: A list of dictionaries containing airdrop data.
+    """
+    WAIT_TIME = 10  # seconds
+
     options = Options()
-    options.add_argument('--headless')  # comment this to debug visually
+    options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument("--window-size=1920,1080")
@@ -14,7 +23,7 @@ def get_airdrops():
     driver = webdriver.Chrome(options=options)
     driver.get("https://airdropsmob.com/")
 
-    time.sleep(10)  # wait for full load
+    time.sleep(WAIT_TIME)
 
     airdrops = []
 
@@ -33,10 +42,6 @@ def get_airdrops():
             raw_date = date_elem.text.strip().split('\n')
             date = raw_date[-1] if raw_date else "?"
 
-            # Optional: Skip if marked as DONE
-            # if date.upper() == "DONE":
-            #     continue
-
             airdrops.append({
                 "title": title,
                 "token": token,
@@ -46,11 +51,12 @@ def get_airdrops():
             })
 
         except Exception as e:
-            print("Error parsing card:", e)
+            print(f"[ERROR] Failed to parse a card: {repr(e)}")
             continue
 
     driver.quit()
     return airdrops
+
 
 # Debug mode
 if __name__ == "__main__":

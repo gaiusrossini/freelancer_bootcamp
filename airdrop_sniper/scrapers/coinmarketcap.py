@@ -3,9 +3,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 
+
 def get_airdrops():
+    """
+    Scrapes airdrops from CoinMarketCap's airdrop page using Selenium.
+
+    Returns:
+        list: A list of dictionaries containing airdrop data.
+    """
+    WAIT_TIME = 8  # seconds
+
     options = Options()
-    options.add_argument('--headless')  # Remove this line to see browser
+    options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument("--window-size=1920,1080")
@@ -14,7 +23,7 @@ def get_airdrops():
     driver = webdriver.Chrome(options=options)
     driver.get('https://coinmarketcap.com/airdrop/')
 
-    time.sleep(8)
+    time.sleep(WAIT_TIME)
 
     airdrops = []
 
@@ -35,13 +44,14 @@ def get_airdrops():
                 'source': 'coinmarketcap'
             })
         except Exception as e:
-            print("Error parsing card:", e)
+            print(f"[coinmarketcap] Error parsing card: {repr(e)}")
             continue
 
     driver.quit()
     return airdrops
 
-# Debug mode (optional)
+
+# Debug mode
 if __name__ == "__main__":
     from pprint import pprint
     pprint(get_airdrops())

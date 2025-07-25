@@ -6,7 +6,7 @@ DATA_FILE = 'data/airdrops.json'
 
 
 def load_existing_airdrops():
-    """Carrega os airdrops salvos em disco."""
+    """Load the airdrops in a list."""
     if not os.path.exists(DATA_FILE):
         return []
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
@@ -14,21 +14,20 @@ def load_existing_airdrops():
 
 
 def save_airdrops(airdrops):
-    """Salva a lista atualizada de airdrops."""
+    """Save the updated airdrop list."""
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(airdrops, f, indent=2, ensure_ascii=False)
 
 
 def is_new_airdrop(airdrop, existing_airdrops):
-    """Verifica se o airdrop já existe."""
+    """Verify if the airdrop is new."""
     return not any(existing['link'] == airdrop['link'] for existing in existing_airdrops)
 
 
 def collect_and_store(new_airdrops):
-    """
-    Recebe uma lista de dicionários com airdrops novos do scraper
-    e adiciona apenas os que ainda não existem no arquivo.
-    """
+
+    """Get a list of dictionaries and add only new ones in an archive."""
+
     existing = load_existing_airdrops()
     added = []
 
@@ -40,13 +39,13 @@ def collect_and_store(new_airdrops):
     if added:
         save_airdrops(existing)
 
-    return added  # Retorna os que foram de fato adicionados
+    return added  # Returns the ones that have been added
 
 
-# Exemplo de uso direto:
+# Exemple of direct use:
 if __name__ == "__main__":
     exemplo = [
-        {"title": "Nova Gema", "link": "https://airdrops.live/airdrop/nova-gema/", "source": "airdrops.live"}
+        {"title": "New Gem", "link": "https://airdrops.live/airdrop/nova-gema/", "source": "airdrops.live"}
     ]
-    novos = collect_and_store(exemplo)
-    print(f"{len(novos)} airdrops novos adicionados.")
+    new = collect_and_store(exemplo)
+    print(f"{len(new)} new airdrops added.")
